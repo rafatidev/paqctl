@@ -321,7 +321,7 @@ function Install-Paqet {
         return $true
     }
 
-    $zipUrl = "https://github.com/SamNet-dev/paqctl/releases/download/$PaqetVersion/paqet-windows-amd64-$PaqetVersion.zip"
+    $zipUrl = "https://github.com/hanselime/paqet/releases/download/$PaqetVersion/paqet-windows-amd64-$PaqetVersion.zip"
     $zipFile = "$env:TEMP\paqet.zip"
 
     Write-Info "Downloading paqet $PaqetVersion..."
@@ -689,6 +689,178 @@ function Get-ClientStatus {
 }
 
 #═══════════════════════════════════════════════════════════════════════
+# Update Function
+#═══════════════════════════════════════════════════════════════════════
+
+function Get-InstalledPaqetVersion {
+    # Check settings file first for tracked version
+    if (Test-Path $SettingsFile) {
+        $content = Get-Content $SettingsFile -ErrorAction SilentlyContinue
+        foreach ($line in $content) {
+            if ($line -match '^PAQET_VERSION="?([^"]+)"?') {
+                return $Matches[1]
+            }
+        }
+    }
+    # Fall back to pinned version if paqet is installed
+    if (Test-Path $PaqetExe) {
+        return $PaqetVersion
+    }
+    return $null
+}
+
+function Save-PaqetVersion {
+    param([string]$Version)
+
+    if (-not (Test-Path $SettingsFile)) {
+        return
+    }
+
+    $content = Get-Content $SettingsFile -Raw -ErrorAction SilentlyContinue
+    if ($content -match 'PAQET_VERSION=') {
+        # Update existing
+        $content = $content -replace 'PAQET_VERSION="[^"]*"', "PAQET_VERSION=`"$Version`""
+    } else {
+        # Add new line
+        $content = $content.TrimEnd() + "`nPAQET_VERSION=`"$Version`""
+    }
+    [System.IO.File]::WriteAllText($SettingsFile, $content)
+}
+
+function Update-Paqet {
+    Write-Host ""
+    Write-Host "  CHECKING FOR UPDATES" -ForegroundColor Cyan
+    Write-Host "  ────────────────────" -ForegroundColor Cyan
+    Write-Host ""
+
+    # Check if paqet is installed
+    if (-not (Test-Path $PaqetExe)) {
+        Write-Warn "Paqet is not installed. Use option 1 to install first."
+        return $false
+    }
+
+    # Get installed version
+    $installedVersion = Get-InstalledPaqetVersion
+    if (-not $installedVersion) {
+        $installedVersion = $PaqetVersion
+    }
+
+    # Query GitHub API for latest release
+    Write-Info "Querying GitHub for latest release..."
+    try {
+        $apiUrl = "https://api.github.com/repos/hanselime/paqet/releases/latest"
+        $response = Invoke-RestMethod -Uri $apiUrl -TimeoutSec 30
+        $latestVersion = $response.tag_name
+    } catch {
+        Write-Err "Failed to check for updates: $_"
+        return $false
+    }
+
+    # Show version info
+    Write-Host ""
+    Write-Host "  Installed version:  $installedVersion" -ForegroundColor White
+    Write-Host "  Latest version:     $latestVersion" -ForegroundColor White
+    Write-Host ""
+
+    # Compare versions
+    if ($installedVersion -eq $latestVersion) {
+        Write-Success "You are already on the latest version!"
+        return $true
+    }
+
+    # Confirm update
+    Write-Host "  A new version is available!" -ForegroundColor Yellow
+    $confirm = Read-Host "  Update to $latestVersion? [y/N]"
+    if ($confirm -notmatch "^[Yy]") {
+        Write-Info "Update cancelled"
+        return $false
+    }
+
+    # Stop running paqet first
+    $paqetProc = Get-Process -Name "paqet_windows_amd64" -ErrorAction SilentlyContinue
+    if ($paqetProc) {
+        Write-Info "Stopping paqet..."
+        Stop-Process -Name "paqet_windows_amd64" -Force
+        Start-Sleep -Seconds 2
+    }
+
+    # Download new version
+    $zipUrl = "https://github.com/hanselime/paqet/releases/download/$latestVersion/paqet-windows-amd64-$latestVersion.zip"
+    $zipFile = "$env:TEMP\paqet-update.zip"
+    $extractDir = "$env:TEMP\paqet-update"
+
+    Write-Info "Downloading paqet $latestVersion..."
+    try {
+        Invoke-WebRequest -Uri $zipUrl -OutFile $zipFile -TimeoutSec 120
+    } catch {
+        Write-Err "Download failed: $_"
+        return $false
+    }
+
+    # Validate download
+    if (-not (Test-Path $zipFile) -or (Get-Item $zipFile).Length -lt 1000) {
+        Write-Err "Downloaded file is invalid or too small"
+        return $false
+    }
+
+    # Extract
+    Write-Info "Extracting..."
+    try {
+        if (Test-Path $extractDir) { Remove-Item $extractDir -Recurse -Force }
+        Expand-Archive -Path $zipFile -DestinationPath $extractDir -Force
+    } catch {
+        Write-Err "Extraction failed: $_"
+        Remove-Item $zipFile -Force -ErrorAction SilentlyContinue
+        return $false
+    }
+
+    # Find the binary
+    $newBinary = Get-ChildItem -Path $extractDir -Filter "paqet_windows_amd64.exe" -Recurse | Select-Object -First 1
+    if (-not $newBinary) {
+        Write-Err "Could not find paqet binary in archive"
+        Remove-Item $zipFile -Force -ErrorAction SilentlyContinue
+        Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue
+        return $false
+    }
+
+    # Backup old binary
+    $backupPath = "$InstallDir\paqet_windows_amd64.exe.bak"
+    try {
+        Copy-Item $PaqetExe $backupPath -Force
+        Write-Info "Backed up old binary"
+    } catch {
+        Write-Warn "Could not backup old binary: $_"
+    }
+
+    # Install new binary
+    try {
+        Copy-Item $newBinary.FullName $PaqetExe -Force
+    } catch {
+        Write-Err "Failed to install new binary: $_"
+        # Try to restore backup
+        if (Test-Path $backupPath) {
+            Copy-Item $backupPath $PaqetExe -Force -ErrorAction SilentlyContinue
+        }
+        return $false
+    }
+
+    # Save version to settings
+    Save-PaqetVersion -Version $latestVersion
+
+    # Cleanup
+    Remove-Item $zipFile -Force -ErrorAction SilentlyContinue
+    Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue
+
+    Write-Host ""
+    Write-Success "Updated to $latestVersion!"
+    Write-Host ""
+    Write-Info "Restart the client to use the new version"
+    Write-Host ""
+
+    return $true
+}
+
+#═══════════════════════════════════════════════════════════════════════
 # Interactive Menu
 #═══════════════════════════════════════════════════════════════════════
 
@@ -722,7 +894,8 @@ function Show-Menu {
         Write-Host "  4. Start client"
         Write-Host "  5. Stop client"
         Write-Host "  6. Show status"
-        Write-Host "  7. About (how it works)"
+        Write-Host "  7. Update paqet"
+        Write-Host "  8. About (how it works)"
         Write-Host "  0. Exit"
         Write-Host ""
 
@@ -780,7 +953,8 @@ function Show-Menu {
             }
             "5" { Stop-Client }
             "6" { Get-ClientStatus }
-            "7" { Show-About }
+            "7" { Update-Paqet }
+            "8" { Show-About }
             "0" { return }
             default { Write-Warn "Invalid option" }
         }

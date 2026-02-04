@@ -446,11 +446,11 @@ macOS requires manual setup since there's no automated script yet.
 mkdir -p ~/paqet && cd ~/paqet
 
 # Download latest release (Intel Mac)
-curl -LO https://github.com/SamNet-dev/paqctl/releases/download/v1.0.0-alpha.13/paqet-darwin-amd64-v1.0.0-alpha.13.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.13/paqet-darwin-amd64-v1.0.0-alpha.13.tar.gz
 tar -xzf paqet-darwin-amd64-v1.0.0-alpha.13.tar.gz
 
 # For Apple Silicon (M1/M2/M3):
-# curl -LO https://github.com/SamNet-dev/paqctl/releases/download/v1.0.0-alpha.13/paqet-darwin-arm64-v1.0.0-alpha.13.tar.gz
+# curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.13/paqet-darwin-arm64-v1.0.0-alpha.13.tar.gz
 # tar -xzf paqet-darwin-arm64-v1.0.0-alpha.13.tar.gz
 
 # Make executable
@@ -644,7 +644,7 @@ Then run GFK from within the venv.
 ```bash
 # Download paqet
 mkdir -p ~/paqet && cd ~/paqet
-curl -LO https://github.com/SamNet-dev/paqctl/releases/download/v1.0.0-alpha.13/paqet-linux-amd64-v1.0.0-alpha.13.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.13/paqet-linux-amd64-v1.0.0-alpha.13.tar.gz
 tar -xzf paqet-linux-amd64-v1.0.0-alpha.13.tar.gz
 chmod +x paqet_linux_amd64
 
@@ -1198,11 +1198,11 @@ macOS نیاز به راه‌اندازی دستی دارد.
 mkdir -p ~/paqet && cd ~/paqet
 
 # برای Intel Mac:
-curl -LO https://github.com/SamNet-dev/paqctl/releases/download/v1.0.0-alpha.13/paqet-darwin-amd64-v1.0.0-alpha.13.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.13/paqet-darwin-amd64-v1.0.0-alpha.13.tar.gz
 tar -xzf paqet-darwin-amd64-v1.0.0-alpha.13.tar.gz
 
 # برای Apple Silicon (M1/M2/M3):
-# curl -LO https://github.com/SamNet-dev/paqctl/releases/download/v1.0.0-alpha.13/paqet-darwin-arm64-v1.0.0-alpha.13.tar.gz
+# curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.13/paqet-darwin-arm64-v1.0.0-alpha.13.tar.gz
 # tar -xzf paqet-darwin-arm64-v1.0.0-alpha.13.tar.gz
 
 chmod +x paqet_darwin_amd64
@@ -1315,7 +1315,7 @@ sudo python3 mainclient.py
 ```bash
 # دانلود paqet
 mkdir -p ~/paqet && cd ~/paqet
-curl -LO https://github.com/SamNet-dev/paqctl/releases/download/v1.0.0-alpha.13/paqet-linux-amd64-v1.0.0-alpha.13.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.13/paqet-linux-amd64-v1.0.0-alpha.13.tar.gz
 tar -xzf paqet-linux-amd64-v1.0.0-alpha.13.tar.gz
 chmod +x paqet_linux_amd64
 
