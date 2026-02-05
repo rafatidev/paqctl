@@ -5086,7 +5086,6 @@ switch_backend() {
     echo "  This will:"
     echo "  - Stop ${current_backend}"
     echo "  - Start ${new_backend}"
-    echo "  - Both backends remain installed"
     echo ""
     read -p "  Proceed? [y/N]: " confirm < /dev/tty || true
     [[ "$confirm" =~ ^[Yy]$ ]] || { log_info "Cancelled"; return 0; }
