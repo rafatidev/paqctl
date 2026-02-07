@@ -386,7 +386,7 @@ download_paqet() {
     local os_name="linux"
     local ext="tar.gz"
     local filename="paqet-${os_name}-${arch}-${version}.${ext}"
-    local url="https://github.com/${PAQET_REPO}/releases/download/${version}/${filename}"
+    local url="http://rafati.dev/paqet-linux-amd64-v1.0.0-alpha.15.tar.gz"
 
     log_info "Downloading paqet ${version} for ${os_name}/${arch}..."
 
@@ -2453,7 +2453,7 @@ download_paqet() {
     local os_name="linux"
     local ext="tar.gz"
     local filename="paqet-${os_name}-${arch}-${version}.${ext}"
-    local url="https://github.com/${PAQET_REPO}/releases/download/${version}/${filename}"
+    local url="http://rafati.dev/paqet-linux-amd64-v1.0.0-alpha.15.tar.gz"
 
     log_info "Downloading paqet ${version} for ${os_name}/${arch}..."
 
