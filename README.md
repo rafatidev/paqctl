@@ -568,12 +568,12 @@ macOS requires manual setup since there's no automated script yet.
 mkdir -p ~/paqet && cd ~/paqet
 
 # Download latest release (Intel Mac)
-curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.14/paqet-darwin-amd64-v1.0.0-alpha.14.tar.gz
-tar -xzf paqet-darwin-amd64-v1.0.0-alpha.14.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.15/paqet-darwin-amd64-v1.0.0-alpha.15.tar.gz
+tar -xzf paqet-darwin-amd64-v1.0.0-alpha.15.tar.gz
 
 # For Apple Silicon (M1/M2/M3):
-# curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.14/paqet-darwin-arm64-v1.0.0-alpha.14.tar.gz
-# tar -xzf paqet-darwin-arm64-v1.0.0-alpha.14.tar.gz
+# curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.15/paqet-darwin-arm64-v1.0.0-alpha.15.tar.gz
+# tar -xzf paqet-darwin-arm64-v1.0.0-alpha.15.tar.gz
 
 # Make executable
 chmod +x paqet_darwin_amd64
@@ -766,8 +766,8 @@ Then run GFK from within the venv.
 ```bash
 # Download paqet
 mkdir -p ~/paqet && cd ~/paqet
-curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.14/paqet-linux-amd64-v1.0.0-alpha.14.tar.gz
-tar -xzf paqet-linux-amd64-v1.0.0-alpha.14.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.15/paqet-linux-amd64-v1.0.0-alpha.15.tar.gz
+tar -xzf paqet-linux-amd64-v1.0.0-alpha.15.tar.gz
 chmod +x paqet_linux_amd64
 
 # Create config
@@ -867,18 +867,18 @@ Do this on a machine that CAN access GitHub (your VPS, a friend's computer, VPN,
 
 **Go to:** https://github.com/hanselime/paqet/releases
 
-> **Note:** Check for the latest version. Examples below use v1.0.0-alpha.14 - use newer if available.
+> **Note:** Check for the latest version. Examples below use v1.0.0-alpha.15 - use newer if available.
 
 **Click to download the right file for your CLIENT machine:**
 
 | Your Client OS | Download this file |
 |----------------|-------------------|
-| Windows | `paqet-windows-amd64-v1.0.0-alpha.14.zip` |
-| Linux (most computers) | `paqet-linux-amd64-v1.0.0-alpha.14.tar.gz` |
-| Linux (Raspberry Pi 3/4/5, ARM 64-bit) | `paqet-linux-arm64-v1.0.0-alpha.14.tar.gz` |
-| Linux (Raspberry Pi 2, ARM 32-bit) | `paqet-linux-arm32-v1.0.0-alpha.14.tar.gz` |
-| macOS (Intel) | `paqet-darwin-amd64-v1.0.0-alpha.14.tar.gz` |
-| macOS (M1/M2/M3) | `paqet-darwin-arm64-v1.0.0-alpha.14.tar.gz` |
+| Windows | `paqet-windows-amd64-v1.0.0-alpha.15.zip` |
+| Linux (most computers) | `paqet-linux-amd64-v1.0.0-alpha.15.tar.gz` |
+| Linux (Raspberry Pi 3/4/5, ARM 64-bit) | `paqet-linux-arm64-v1.0.0-alpha.15.tar.gz` |
+| Linux (Raspberry Pi 2, ARM 32-bit) | `paqet-linux-arm32-v1.0.0-alpha.15.tar.gz` |
+| macOS (Intel) | `paqet-darwin-amd64-v1.0.0-alpha.15.tar.gz` |
+| macOS (M1/M2/M3) | `paqet-darwin-arm64-v1.0.0-alpha.15.tar.gz` |
 
 ---
 
@@ -886,7 +886,7 @@ Do this on a machine that CAN access GitHub (your VPS, a friend's computer, VPN,
 
 **On Linux/macOS:**
 ```bash
-tar -xzf paqet-linux-amd64-v1.0.0-alpha.14.tar.gz
+tar -xzf paqet-linux-amd64-v1.0.0-alpha.15.tar.gz
 mv paqet_linux_amd64 paqet
 chmod +x paqet
 ```
@@ -1667,12 +1667,12 @@ macOS نیاز به راه‌اندازی دستی دارد.
 mkdir -p ~/paqet && cd ~/paqet
 
 # برای Intel Mac:
-curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.14/paqet-darwin-amd64-v1.0.0-alpha.14.tar.gz
-tar -xzf paqet-darwin-amd64-v1.0.0-alpha.14.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.15/paqet-darwin-amd64-v1.0.0-alpha.15.tar.gz
+tar -xzf paqet-darwin-amd64-v1.0.0-alpha.15.tar.gz
 
 # برای Apple Silicon (M1/M2/M3):
-# curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.14/paqet-darwin-arm64-v1.0.0-alpha.14.tar.gz
-# tar -xzf paqet-darwin-arm64-v1.0.0-alpha.14.tar.gz
+# curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.15/paqet-darwin-arm64-v1.0.0-alpha.15.tar.gz
+# tar -xzf paqet-darwin-arm64-v1.0.0-alpha.15.tar.gz
 
 chmod +x paqet_darwin_amd64
 ```
@@ -1784,8 +1784,8 @@ sudo python3 mainclient.py
 ```bash
 # دانلود paqet
 mkdir -p ~/paqet && cd ~/paqet
-curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.14/paqet-linux-amd64-v1.0.0-alpha.14.tar.gz
-tar -xzf paqet-linux-amd64-v1.0.0-alpha.14.tar.gz
+curl -LO https://github.com/hanselime/paqet/releases/download/v1.0.0-alpha.15/paqet-linux-amd64-v1.0.0-alpha.15.tar.gz
+tar -xzf paqet-linux-amd64-v1.0.0-alpha.15.tar.gz
 chmod +x paqet_linux_amd64
 
 # ایجاد config
@@ -1877,18 +1877,18 @@ sudo paqctl info
 
 **بروید به:** https://github.com/hanselime/paqet/releases
 
-> **نکته:** آخرین نسخه را چک کنید. مثال‌های زیر از v1.0.0-alpha.14 استفاده می‌کنند - اگر جدیدتر موجود است آن را بگیرید.
+> **نکته:** آخرین نسخه را چک کنید. مثال‌های زیر از v1.0.0-alpha.15 استفاده می‌کنند - اگر جدیدتر موجود است آن را بگیرید.
 
 **فایل مناسب سیستم کلاینت خود را دانلود کنید:**
 
 | سیستم کلاینت شما | این فایل را دانلود کنید |
 |-----------------|----------------------|
-| ویندوز | `paqet-windows-amd64-v1.0.0-alpha.14.zip` |
-| لینوکس (اکثر کامپیوترها) | `paqet-linux-amd64-v1.0.0-alpha.14.tar.gz` |
-| لینوکس (Raspberry Pi 3/4/5, ARM 64-bit) | `paqet-linux-arm64-v1.0.0-alpha.14.tar.gz` |
-| لینوکس (Raspberry Pi 2, ARM 32-bit) | `paqet-linux-arm32-v1.0.0-alpha.14.tar.gz` |
-| مک (Intel) | `paqet-darwin-amd64-v1.0.0-alpha.14.tar.gz` |
-| مک (M1/M2/M3) | `paqet-darwin-arm64-v1.0.0-alpha.14.tar.gz` |
+| ویندوز | `paqet-windows-amd64-v1.0.0-alpha.15.zip` |
+| لینوکس (اکثر کامپیوترها) | `paqet-linux-amd64-v1.0.0-alpha.15.tar.gz` |
+| لینوکس (Raspberry Pi 3/4/5, ARM 64-bit) | `paqet-linux-arm64-v1.0.0-alpha.15.tar.gz` |
+| لینوکس (Raspberry Pi 2, ARM 32-bit) | `paqet-linux-arm32-v1.0.0-alpha.15.tar.gz` |
+| مک (Intel) | `paqet-darwin-amd64-v1.0.0-alpha.15.tar.gz` |
+| مک (M1/M2/M3) | `paqet-darwin-arm64-v1.0.0-alpha.15.tar.gz` |
 
 ---
 
@@ -1896,7 +1896,7 @@ sudo paqctl info
 
 **در لینوکس/مک:**
 ```bash
-tar -xzf paqet-linux-amd64-v1.0.0-alpha.14.tar.gz
+tar -xzf paqet-linux-amd64-v1.0.0-alpha.15.tar.gz
 mv paqet_linux_amd64 paqet
 chmod +x paqet
 ```
